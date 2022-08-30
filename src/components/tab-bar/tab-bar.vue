@@ -14,54 +14,31 @@ const handleItemClick = (index, path) => {
 
 <template>
   <div class="tab-bar">
-    <template
-      v-for="({ image, imageActive, path, text }, index) in tabBarData"
-      :key="image"
-    >
-      <div
-        class="tab-bar-item"
-        :class="{ active: curIndex === index }"
-        @click="handleItemClick(index, path)"
+    <van-tabbar v-model="curIndex" active-color="#ff9854">
+      <template
+        v-for="({ image, imageActive, path, text }, index) in tabBarData"
+        :key="image"
       >
-        <img
-          :src="loadAssetsUrl(curIndex === index ? imageActive : image)"
-          alt=""
-        />
-        <span class="text">{{ text }}</span>
-      </div>
-    </template>
+        <van-tabbar-item :to="path">
+          <template #icon>
+            <img
+              :src="loadAssetsUrl(curIndex === index ? imageActive : image)"
+              alt=""
+            />
+          </template>
+          <span class="text">{{ text }}</span>
+        </van-tabbar-item>
+      </template>
+    </van-tabbar>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .tab-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  display: flex;
-  border-top: 1px solid #f3f3f3;
-
-  .tab-bar-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    &.active {
-      color: var(--theme-color);
-    }
-
-    img {
-      width: 36px;
-    }
-
-    .text {
-      font-size: 12px;
-      margin-top: 2px;
-    }
+  // 局部修改ui库变量
+  // --van-tabbar-item-font-size: 30px;
+  .van-tabbar-item__icon img {
+    height: 24px;
   }
 }
 </style>
