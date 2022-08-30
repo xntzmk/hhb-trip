@@ -1,0 +1,23 @@
+<script setup></script>
+
+<template>
+  <div class="nav-bar">
+    <div class="title">浅云旅途</div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.nav-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 46px;
+  border-bottom: 1px solid #f2f2f2;
+
+  .title {
+    color: var(--theme-color);
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+</style>
