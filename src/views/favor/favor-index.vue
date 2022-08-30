@@ -1,12 +1,12 @@
 <script setup></script>
 
 <template>
-  <div class="the-order">
-    <h1>the-order</h1>
+  <div class="favor-index">
+    <h1>favor-index</h1>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.the-order {
+.favor-index {
 }
 </style>

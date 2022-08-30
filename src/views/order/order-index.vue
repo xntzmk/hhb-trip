@@ -1,12 +1,12 @@
 <script setup></script>
 
 <template>
-  <div class="the-profile">
-    <h1>the-profile</h1>
+  <div class="order-index">
+    <h1>order-index</h1>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.the-profile {
+.order-index {
 }
 </style>

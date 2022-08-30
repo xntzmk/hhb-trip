@@ -8,3 +8,13 @@ body {
   font-size: 14px;
   /* font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; */
 }
+
+/* 对page添加样式，达到隐藏tabbar的效果 */
+.page-hide-tab-bar {
+  position: relative;
+  z-index: 10;
+  background-color: #fff;
+  height: 100vh;
+  /* 元素内滚动 */
+  overflow-y: auto;
+}

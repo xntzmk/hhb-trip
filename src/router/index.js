@@ -9,19 +9,26 @@ const router = createRouter({
     },
     {
       path: '/home',
-      component: () => import('@/views/home/the-home.vue')
+      component: () => import('@/views/home/home-index.vue')
     },
     {
       path: '/favor',
-      component: () => import('@/views/favor/the-favor.vue')
+      component: () => import('@/views/favor/favor-index.vue')
     },
     {
       path: '/order',
-      component: () => import('@/views/order/the-order.vue')
+      component: () => import('@/views/order/order-index.vue')
     },
     {
       path: '/profile',
-      component: () => import('@/views/profile/the-profile.vue')
+      component: () => import('@/views/profile/profile-index.vue')
+    },
+    {
+      path: '/city',
+      component: () => import('@/views/city/city-index.vue'),
+      meta: {
+        hideTabBar: true
+      }
     }
   ]
 })
