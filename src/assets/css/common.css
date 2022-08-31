@@ -3,6 +3,9 @@
 
   /* 全局修改 */
   /* --van-tabbar-item-font-size: 30px; */
+
+  /* search样式 */
+  --van-search-left-icon-color: var(--theme-color) !important;
 }
 body {
   font-size: 14px;
