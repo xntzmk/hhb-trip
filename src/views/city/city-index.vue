@@ -39,25 +39,27 @@ const currentCityGroup = computed(() => allCities.value[tabActive.value])
 
 <template>
   <div class="city-index">
-    <!-- 搜索框 -->
-    <van-search
-      v-model="searchValue"
-      shape="round"
-      show-action
-      placeholder="城市/区域/位置"
-      @cancel="onCancel"
-    />
+    <div class="top">
+      <!-- 搜索框 -->
+      <van-search
+        v-model="searchValue"
+        shape="round"
+        show-action
+        placeholder="城市/区域/位置"
+        @cancel="onCancel"
+      />
 
-    <!-- 标签页 -->
-    <van-tabs
-      v-model:active="tabActive"
-      color="var(--theme-color)"
-      line-height="2"
-    >
-      <template v-for="(value, key) in allCities" :key="key">
-        <van-tab :title="value.title" :name="key" />
-      </template>
-    </van-tabs>
+      <!-- 标签页 -->
+      <van-tabs
+        v-model:active="tabActive"
+        color="var(--theme-color)"
+        line-height="2"
+      >
+        <template v-for="(value, key) in allCities" :key="key">
+          <van-tab :title="value.title" :name="key" />
+        </template>
+      </van-tabs>
+    </div>
 
     <!-- 主要内容 -->
     <div class="content">
@@ -72,6 +74,11 @@ const currentCityGroup = computed(() => allCities.value[tabActive.value])
 
 <style lang="scss" scoped>
 .city-index {
+  .top {
+    position: relative;
+    z-index: 10;
+  }
+
   .content {
     height: calc(100vh - 98px);
     overflow-y: auto;
