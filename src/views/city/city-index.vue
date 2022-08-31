@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import { fetchCityAll } from '@/service'
 import useCityStore from '@/stores/modules/city'
 import { storeToRefs } from 'pinia'
+import CityGroup from './modules/city-group.vue'
 
 const router = useRouter()
 
@@ -31,6 +32,9 @@ const tabActive = ref(0)
 const cityStore = useCityStore()
 cityStore.fetchCityAllData()
 const { allCities } = storeToRefs(cityStore)
+
+// 当前展示城市组
+const currentCityGroup = computed(() => allCities.value[tabActive.value])
 </script>
 
 <template>
@@ -51,13 +55,26 @@ const { allCities } = storeToRefs(cityStore)
       line-height="2"
     >
       <template v-for="(value, key) in allCities" :key="key">
-        <van-tab :title="value.title" />
+        <van-tab :title="value.title" :name="key" />
       </template>
     </van-tabs>
+
+    <!-- 主要内容 -->
+    <div class="content">
+      <!-- 渲染时间过长，导致标签页切换慢 -->
+      <!-- <city-group :group-data="currentCityGroup" /> -->
+      <template v-for="(value, key) in allCities" :key="key">
+        <city-group :group-data="value" v-show="key === tabActive" />
+      </template>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .city-index {
+  .content {
+    height: calc(100vh - 98px);
+    overflow-y: auto;
+  }
 }
 </style>
