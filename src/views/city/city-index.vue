@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { fetchCityAll } from '@/service'
 
 const router = useRouter()
 
@@ -12,6 +13,11 @@ const onCancel = () => {
 
 // 标签页切换
 const tabActive = ref(0)
+
+// 请求城市数据
+fetchCityAll().then(res => {
+  console.log(res)
+})
 </script>
 
 <template>
