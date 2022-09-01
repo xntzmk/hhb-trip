@@ -1,9 +1,9 @@
 <script setup>
 import useCityStore from '@/stores/modules/city'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { formatMonthDay } from '@/utils/formatDate'
+import { formatMonthDay, getDiffDays } from '@/utils/formatDate'
 
 const router = useRouter()
 
@@ -34,8 +34,18 @@ const { currentCity } = storeToRefs(cityStore)
 
 // 日期范围
 const nowDate = new Date().getTime()
-const startDate = ref(formatMonthDay(nowDate))
-const endDate = ref(formatMonthDay(nowDate + 24 * 60 * 60 * 1000))
+const startDate = ref(nowDate)
+const endDate = ref(nowDate + 24 * 60 * 60 * 1000)
+const dateGap = computed(() => getDiffDays(startDate.value, endDate.value))
+
+// 日期范围组件的展示和回显
+const showCalendar = ref(false)
+const onConfirm = dateList => {
+  showCalendar.value = false
+
+  startDate.value = dateList[0]
+  endDate.value = dateList[1]
+}
 </script>
 
 <template>
@@ -52,21 +62,31 @@ const endDate = ref(formatMonthDay(nowDate + 24 * 60 * 60 * 1000))
     </div>
 
     <!-- 日期选择 -->
-    <div class="section date-range">
+    <div class="section date-range" @click="showCalendar = true">
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{ startDate }}</span>
+          <span class="time">{{ formatMonthDay(startDate) }}</span>
         </div>
-        <div class="stay">共{{ 1 }}晚</div>
+        <div class="stay">
+          共
+          <span style="padding: 0 1px">{{ dateGap }}</span>
+          晚
+        </div>
       </div>
       <div class="end">
         <div class="date">
           <span class="tip">离店</span>
-          <span class="time">{{ endDate }}</span>
+          <span class="time">{{ formatMonthDay(endDate) }}</span>
         </div>
       </div>
     </div>
+    <van-calendar
+      v-model:show="showCalendar"
+      color="var(--theme-color)"
+      type="range"
+      @confirm="onConfirm"
+    />
   </div>
 </template>
 
@@ -125,7 +145,7 @@ const endDate = ref(formatMonthDay(nowDate + 24 * 60 * 60 * 1000))
     .stay {
       flex: 1;
       text-align: center;
-      font-size: 12px;
+      font-size: 13px;
       color: #666;
     }
 
