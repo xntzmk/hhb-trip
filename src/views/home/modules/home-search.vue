@@ -1,11 +1,20 @@
 <script setup>
-import useCityStore from '@/stores/modules/city'
-import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
+
 import { useRouter } from 'vue-router'
+import useCityStore from '@/stores/modules/city'
+import useHomeStore from '@/stores/modules/home'
+import { storeToRefs } from 'pinia'
+
 import { formatMonthDay, getDiffDays } from '@/utils/formatDate'
 
 const router = useRouter()
+
+const cityStore = useCityStore()
+const { currentCity } = storeToRefs(cityStore)
+
+const homeStore = useHomeStore()
+const { hotSuggests } = storeToRefs(homeStore)
 
 const handleCityClick = () => {
   router.push('/city')
@@ -29,9 +38,6 @@ const fetchCurrentPostion = () => {
   )
 }
 
-const cityStore = useCityStore()
-const { currentCity } = storeToRefs(cityStore)
-
 // 日期范围
 const nowDate = new Date().getTime()
 const startDate = ref(nowDate)
@@ -51,7 +57,7 @@ const onConfirm = dateList => {
 <template>
   <div class="home-search">
     <!-- 位置信息 -->
-    <div class="city-search">
+    <div class="city-search bottom-gray-line">
       <div class="city" @click="handleCityClick">
         {{ currentCity.cityName || '福州' }}
       </div>
@@ -87,6 +93,29 @@ const onConfirm = dateList => {
       type="range"
       @confirm="onConfirm"
     />
+
+    <!-- 价格/人数选择 -->
+    <div class="section price-counter bottom-gray-line">
+      <div class="start">价格不限</div>
+      <div class="end">人数不限</div>
+    </div>
+    <!-- 关键字 -->
+    <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
+
+    <!-- 热门建议 -->
+    <div class="section hot-suggests">
+      <template v-for="(item, index) in hotSuggests" :key="index">
+        <div
+          class="item"
+          :style="{
+            color: item.tagText.color,
+            background: item.tagText.background.color
+          }"
+        >
+          {{ item.tagText.text }}
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -136,12 +165,13 @@ const onConfirm = dateList => {
       height: 44px;
       align-items: center;
     }
-
     .end {
       min-width: 30%;
       padding-left: 20px;
     }
+  }
 
+  .date-range {
     .stay {
       flex: 1;
       text-align: center;
@@ -164,6 +194,25 @@ const onConfirm = dateList => {
         font-size: 15px;
         font-weight: 500;
       }
+    }
+  }
+
+  .price-counter {
+    .start {
+      border-right: 1px solid var(--line-color);
+    }
+  }
+
+  .hot-suggests {
+    margin: 10px 0;
+    height: auto;
+
+    .item {
+      padding: 4px 8px;
+      margin: 4px;
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 1;
     }
   }
 }

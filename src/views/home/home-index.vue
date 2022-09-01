@@ -1,6 +1,11 @@
 <script setup>
-import HomeNavBar from './home-nav-bar.vue'
-import HomeSearch from './home-search.vue'
+import HomeNavBar from './modules/home-nav-bar.vue'
+import HomeSearch from './modules/home-search.vue'
+
+import useHomeStore from '@/stores/modules/home'
+
+const homeStore = useHomeStore()
+homeStore.fetchHotSuggestsData()
 </script>
 
 <template>

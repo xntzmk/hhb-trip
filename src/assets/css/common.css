@@ -1,5 +1,6 @@
 :root {
   --theme-color: #ff9854;
+  --line-color: #f8f9f9;
 
   /* 全局修改 */
   /* --van-tabbar-item-font-size: 30px; */
@@ -20,4 +21,8 @@ body {
   height: 100vh;
   /* 元素内滚动 */
   overflow-y: auto;
+}
+
+.bottom-gray-line {
+  border-bottom: 1px solid var(--line-color);
 }
