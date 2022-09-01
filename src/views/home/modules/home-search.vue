@@ -52,6 +52,10 @@ const onConfirm = dateList => {
   startDate.value = dateList[0]
   endDate.value = dateList[1]
 }
+
+const handleSearchClick = () => {
+  router.push('/search')
+}
 </script>
 
 <template>
@@ -115,6 +119,11 @@ const onConfirm = dateList => {
           {{ item.tagText.text }}
         </div>
       </template>
+    </div>
+
+    <!-- 搜索按钮 -->
+    <div class="section search-btn">
+      <div class="btn" @click="handleSearchClick">开始搜索</div>
     </div>
   </div>
 </template>
@@ -213,6 +222,21 @@ const onConfirm = dateList => {
       border-radius: 14px;
       font-size: 12px;
       line-height: 1;
+    }
+  }
+
+  .search-btn {
+    .btn {
+      width: 342px;
+      height: 38px;
+      max-height: 50px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 38px;
+      text-align: center;
+      border-radius: 20px;
+      color: #fff;
+      background-image: var(--theme-linear-gradient);
     }
   }
 }

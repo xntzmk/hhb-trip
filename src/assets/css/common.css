@@ -1,6 +1,7 @@
 :root {
   --theme-color: #ff9854;
   --line-color: #f8f9f9;
+  --theme-linear-gradient: linear-gradient(90deg, #fa8c1d, #fcaf3f);
 
   /* 全局修改 */
   /* --van-tabbar-item-font-size: 30px; */
