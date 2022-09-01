@@ -1,7 +1,9 @@
 <script setup>
 import useCityStore from '@/stores/modules/city'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { formatMonthDay } from '@/utils/formatDate'
 
 const router = useRouter()
 
@@ -29,6 +31,11 @@ const fetchCurrentPostion = () => {
 
 const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
+
+// 日期范围
+const nowDate = new Date().getTime()
+const startDate = ref(formatMonthDay(nowDate))
+const endDate = ref(formatMonthDay(nowDate + 24 * 60 * 60 * 1000))
 </script>
 
 <template>
@@ -45,6 +52,21 @@ const { currentCity } = storeToRefs(cityStore)
     </div>
 
     <!-- 日期选择 -->
+    <div class="section date-range">
+      <div class="start">
+        <div class="date">
+          <span class="tip">入住</span>
+          <span class="time">{{ startDate }}</span>
+        </div>
+        <div class="stay">共{{ 1 }}晚</div>
+      </div>
+      <div class="end">
+        <div class="date">
+          <span class="tip">离店</span>
+          <span class="time">{{ endDate }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -76,6 +98,51 @@ const { currentCity } = storeToRefs(cityStore)
       img {
         margin-left: 5px;
         width: 18px;
+      }
+    }
+  }
+
+  .section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 20px;
+    color: #999;
+    height: 44px;
+
+    .start {
+      flex: 1;
+      display: flex;
+      height: 44px;
+      align-items: center;
+    }
+
+    .end {
+      min-width: 30%;
+      padding-left: 20px;
+    }
+
+    .stay {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .date {
+      display: flex;
+      flex-direction: column;
+
+      .tip {
+        font-size: 12px;
+        color: #999;
+      }
+
+      .time {
+        margin-top: 3px;
+        color: #333;
+        font-size: 15px;
+        font-weight: 500;
       }
     }
   }
