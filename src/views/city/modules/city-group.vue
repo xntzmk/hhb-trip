@@ -1,5 +1,7 @@
 <script setup>
+import useCityStore from '@/stores/modules/city'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   groupData: {
@@ -19,6 +21,14 @@ const indexList = computed(() => [
 // const handleIndexChange = index => {
 //   currentIndex.value = index
 // }
+
+// 城市点击
+const router = useRouter()
+const cityStore = useCityStore()
+const handleCityClick = city => {
+  cityStore.currentCity = city
+  router.back()
+}
 </script>
 
 <template>
@@ -32,12 +42,9 @@ const indexList = computed(() => [
       <div class="group-item-hot">
         <van-index-anchor class="group-title" index="热门" />
         <div class="group-list-hot">
-          <template
-            v-for="{ cityId, cityName } in groupData.hotCities"
-            :key="cityId"
-          >
-            <div class="city-hot">
-              {{ cityName }}
+          <template v-for="item in groupData.hotCities" :key="item.cityId">
+            <div class="city-hot" @click="handleCityClick(item)">
+              {{ item.cityName }}
             </div>
           </template>
         </div>
@@ -48,8 +55,8 @@ const indexList = computed(() => [
         <div class="group-item">
           <van-index-anchor class="group-title" :index="group" />
           <div class="group-list">
-            <template v-for="{ cityId, cityName } in cities" :key="cityId">
-              <van-cell :title="cityName" />
+            <template v-for="item in cities" :key="item.cityId">
+              <van-cell :title="item.cityName" @click="handleCityClick(item)" />
             </template>
           </div>
         </div>
