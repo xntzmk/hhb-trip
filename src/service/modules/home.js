@@ -5,3 +5,9 @@ export function fetchHomeSuggests() {
     url: 'home/hotSuggests'
   })
 }
+
+export function fetchHomeCategories() {
+  return QYRequest.get({
+    url: 'home/categories'
+  })
+}

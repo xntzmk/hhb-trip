@@ -54,7 +54,10 @@ const onConfirm = dateList => {
 }
 
 const handleSearchClick = () => {
-  router.push('/search')
+  router.push({
+    path: '/search',
+    query: {}
+  })
 }
 </script>
 
