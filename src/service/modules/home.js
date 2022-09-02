@@ -11,3 +11,12 @@ export function fetchHomeCategories() {
     url: 'home/categories'
   })
 }
+
+export function fetchHomeHouseList(page = 1) {
+  return QYRequest.get({
+    url: '/home/houselist',
+    params: {
+      page
+    }
+  })
+}

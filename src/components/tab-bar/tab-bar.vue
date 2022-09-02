@@ -35,6 +35,7 @@ const handleItemClick = (index, path) => {
 
 <style lang="scss" scoped>
 .tab-bar {
+  height: 50px;
   // 局部修改ui库变量
   // --van-tabbar-item-font-size: 30px;
   .van-tabbar-item__icon img {
