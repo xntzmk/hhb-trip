@@ -1,20 +1,21 @@
 <script setup>
 import tabBarData from '@/assets/data/tabbar'
 import { loadAssetsUrl } from '@/utils/loadAssets'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 const curIndex = ref(0)
-const router = useRouter()
-const handleItemClick = (index, path) => {
-  curIndex.value = index
-  router.push(path)
-}
+const route = useRoute()
+// 路由跳转bug修复
+watch(route, newRoute => {
+  const index = tabBarData.findIndex(item => item.path === newRoute.path)
+  index > 0 && (curIndex.value = index)
+})
 </script>
 
 <template>
   <div class="tab-bar">
-    <van-tabbar v-model="curIndex" active-color="#ff9854">
+    <van-tabbar route v-model="curIndex" active-color="#ff9854">
       <template
         v-for="({ image, imageActive, path, text }, index) in tabBarData"
         :key="image"
