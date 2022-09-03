@@ -4,9 +4,10 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useCityStore from '@/stores/modules/city'
 import useHomeStore from '@/stores/modules/home'
+import useMainStore from '@/stores/modules/main'
 import { storeToRefs } from 'pinia'
 
-import { formatMonthDay, getDiffDays } from '@/utils/formatDate'
+import { formatDate } from '@/utils/formatDate'
 
 const router = useRouter()
 
@@ -39,18 +40,21 @@ const fetchCurrentPostion = () => {
 }
 
 // 日期范围
-const nowDate = new Date().getTime()
-const startDate = ref(nowDate)
-const endDate = ref(nowDate + 24 * 60 * 60 * 1000)
-const dateGap = computed(() => getDiffDays(startDate.value, endDate.value))
+const mainStore = useMainStore()
+const { startDate, endDate, dateGap } = storeToRefs(mainStore)
 
 // 日期范围组件的展示和回显
 const showCalendar = ref(false)
 const onConfirm = dateList => {
   showCalendar.value = false
 
+  // 直接修改state
   startDate.value = dateList[0]
   endDate.value = dateList[1]
+
+  // 调用mainStore修改
+  // mainStore.startDate=dateList[0]
+  // mainStore.endDate =dateList[1]
 }
 
 const handleSearchClick = () => {
@@ -79,7 +83,7 @@ const handleSearchClick = () => {
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{ formatMonthDay(startDate) }}</span>
+          <span class="time">{{ formatDate(startDate) }}</span>
         </div>
         <div class="stay">
           共
@@ -90,7 +94,7 @@ const handleSearchClick = () => {
       <div class="end">
         <div class="date">
           <span class="tip">离店</span>
-          <span class="time">{{ formatMonthDay(endDate) }}</span>
+          <span class="time">{{ formatDate(endDate) }}</span>
         </div>
       </div>
     </div>

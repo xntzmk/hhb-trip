@@ -1,15 +1,22 @@
-<script setup></script>
+<script setup>
+import useMainStore from '@/stores/modules/main'
+import { storeToRefs } from 'pinia'
+import { formatDate } from '@/utils/formatDate'
+
+const mainStore = useMainStore()
+const { startDate, endDate } = storeToRefs(mainStore)
+</script>
 
 <template>
   <div class="search-bar">
     <div class="select-time">
       <div class="item start">
         <div class="name">住</div>
-        <div class="date">{{ '09.03' }}</div>
+        <div class="date">{{ formatDate(startDate, 'MM.DD') }}</div>
       </div>
       <div class="item end">
         <div class="name">离</div>
-        <div class="date">{{ '09.04' }}</div>
+        <div class="date">{{ formatDate(endDate, 'MM.DD') }}</div>
       </div>
     </div>
 
