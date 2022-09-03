@@ -1,10 +1,13 @@
 <script setup>
+import useHomeStore from '@/stores/modules/home'
+
 import HomeNavBar from './modules/home-nav-bar.vue'
 import HomeSearch from './modules/home-search.vue'
-
-import useHomeStore from '@/stores/modules/home'
 import HomeCategory from './modules/home-category.vue'
 import HomeHotPicks from './modules/home-hot-picks.vue'
+
+import useScroll from '@/hooks/useScroll'
+import { watch } from 'vue'
 
 const homeStore = useHomeStore()
 homeStore.fetchHotSuggestsData()
@@ -15,8 +18,18 @@ homeStore.fetchHomeHouseListData()
  * 模拟滚动底部加载更多
  */
 const loadMore = () => {
-  homeStore.fetchHomeHouseListData()
+  return homeStore.fetchHomeHouseListData()
 }
+
+const { isReachBottom } = useScroll()
+
+watch(isReachBottom, newValue => {
+  if (newValue) {
+    loadMore().then(() => {
+      isReachBottom.value = false
+    })
+  }
+})
 </script>
 
 <template>
