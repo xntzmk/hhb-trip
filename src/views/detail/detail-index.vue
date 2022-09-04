@@ -4,6 +4,7 @@ import { fetchDetailInfos } from '@/service'
 import { computed, ref } from 'vue'
 import DetailSwipe from './modules/detail-swipe.vue'
 import DetailInfos from './modules/detail-infos.vue'
+import DetailFacility from './modules/detail-facility.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -32,6 +33,9 @@ const onClickLeft = () => {
     <template v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
       <detail-infos :top-infos="mainPart.topModule" />
+      <detail-facility
+        :house-facility="mainPart.dynamicModule.facilityModule.houseFacility"
+      />
     </template>
   </div>
 </template>
