@@ -8,6 +8,8 @@ const useMainStore = defineStore('main', {
   state: () => ({
     token: '',
 
+    isLoading: false,
+
     startDate,
     endDate
   }),
