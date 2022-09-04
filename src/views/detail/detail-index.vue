@@ -5,6 +5,9 @@ import { computed, ref } from 'vue'
 import DetailSwipe from './modules/detail-swipe.vue'
 import DetailInfos from './modules/detail-infos.vue'
 import DetailFacility from './modules/detail-facility.vue'
+import DetailLandlord from './modules/detail-landlord.vue'
+import DetailComment from './modules/detail-comment.vue'
+import DetailNotive from './modules/detail-notive.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -35,6 +38,11 @@ const onClickLeft = () => {
       <detail-infos :top-infos="mainPart.topModule" />
       <detail-facility
         :house-facility="mainPart.dynamicModule.facilityModule.houseFacility"
+      />
+      <detail-landlord :landlord="mainPart.dynamicModule.landlordModule" />
+      <detail-comment :comment="mainPart.dynamicModule.commentModule" />
+      <detail-notive
+        :order-rules="mainPart.dynamicModule.rulesModule.orderRules"
       />
     </template>
   </div>
