@@ -5,6 +5,7 @@
 
   /* 全局修改 */
   /* --van-tabbar-item-font-size: 30px; */
+  --van-primary-color: var(--theme-color);
 
   /* search样式 */
   --van-search-left-icon-color: var(--theme-color) !important;
