@@ -1,7 +1,8 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { fetchDetailInfos } from '@/service'
-import { computed, ref, toRefs } from 'vue'
+import { computed, ref } from 'vue'
+import DetailSwipe from './modules/detail-swipe.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -27,6 +28,9 @@ const onClickLeft = () => {
       left-arrow
       @click-left="onClickLeft"
     />
+    <template v-if="mainPart">
+      <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
+    </template>
   </div>
 </template>
 
