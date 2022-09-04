@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   swipeData: {
     type: Array,
@@ -15,17 +17,23 @@ for (const item of props.swipeData) {
   }
   swipeGroup[enumPictureCategory].push(item)
 }
-console.log(swipeGroup)
 
 // 正则转换
 const titleReg = /【(.*?)】/i
-const getTitle = title => titleReg.exec(title)[1]
+const getTitle = title => titleReg.exec(title)[1].replace(/\d/g, '')
+
+const swipe = ref()
+const switchCategoryHandler = position => {
+  const index = props.swipeData.findIndex(item => item === position)
+  swipe.value.swipeTo(index)
+}
 </script>
 
 <template>
   <div class="detail-swipe">
     <van-swipe
       class="my-swipe"
+      ref="swipe"
       :autoplay="3000"
       indicator-color="white"
     >
@@ -51,6 +59,7 @@ const getTitle = title => titleReg.exec(title)[1]
               :class="{
                 active: swipeData[active]?.enumPictureCategory === parseInt(key)
               }"
+              @click="switchCategoryHandler(value[0])"
             >
               <span>{{ getTitle(value[0].title) }}</span>
               <span
