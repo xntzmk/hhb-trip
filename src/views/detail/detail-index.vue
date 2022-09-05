@@ -8,6 +8,8 @@ import DetailFacility from './modules/detail-facility.vue'
 import DetailLandlord from './modules/detail-landlord.vue'
 import DetailComment from './modules/detail-comment.vue'
 import DetailNotive from './modules/detail-notive.vue'
+import DetailMap from './modules/detail-map.vue'
+import DetailIntro from './modules/detail-intro.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -44,11 +46,33 @@ const onClickLeft = () => {
       <detail-notive
         :order-rules="mainPart.dynamicModule.rulesModule.orderRules"
       />
+      <detail-map :position="mainPart.dynamicModule.positionModule" />
+      <detail-intro :price-intro="mainPart.introductionModule" />
     </template>
+    <div class="footer">
+      <div class="text">你好呀</div>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .detail-index {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+
+    img {
+      width: 123px;
+    }
+
+    .text {
+      margin-top: 12px;
+      font-size: 20px;
+      color: #7688a7;
+    }
+  }
 }
 </style>
