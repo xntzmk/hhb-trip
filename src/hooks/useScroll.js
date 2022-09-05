@@ -4,30 +4,39 @@ import { throttle } from 'underscore'
 /**
  * 监听document滚动，变量方式 => 便于管理
  */
-export default function useScroll() {
+export default function useScroll(elRef) {
+  let el = window // 默认监听window
+
   const isReachBottom = ref(false)
+
   const clientHeight = ref(0)
   const scrollHeight = ref(0)
   const scrollTop = ref(0)
 
   // 节流
   const scrollListenHandler = throttle(() => {
-    clientHeight.value = document.documentElement.clientHeight
-    scrollHeight.value = document.documentElement.scrollHeight
-    scrollTop.value = document.documentElement.scrollTop
+    // console.log('滚动')
+
+    const dom = el === window ? document.documentElement : el // 根据el获取dom元素
+
+    clientHeight.value = dom.clientHeight
+    scrollHeight.value = dom.scrollHeight
+    scrollTop.value = dom.scrollTop
 
     // 判断是否滚动到底部
     if (clientHeight.value + scrollTop.value + 1 >= scrollHeight.value) {
       isReachBottom.value = true
+      // console.log('到底部')
     }
   }, 100)
 
   onMounted(() => {
-    window.addEventListener('scroll', scrollListenHandler)
+    el = elRef?.value || el
+    el.addEventListener('scroll', scrollListenHandler)
   })
 
   onUnmounted(() => {
-    window.removeEventListener('scroll', scrollListenHandler)
+    el.removeEventListener('scroll', scrollListenHandler)
   })
 
   return { isReachBottom, clientHeight, scrollHeight, scrollTop }
