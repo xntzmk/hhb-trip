@@ -10,7 +10,11 @@ const route = useRoute()
 
 <template>
   <div class="app">
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive includes="home-index">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
     <TabBar v-show="!route.meta.hideTabBar" />
     <loading />
   </div>

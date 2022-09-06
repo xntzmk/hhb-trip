@@ -7,7 +7,7 @@ import HomeCategory from './modules/home-category.vue'
 import HomeHotPicks from './modules/home-hot-picks.vue'
 
 import useScroll from '@/hooks/useScroll'
-import { computed, ref, watch } from 'vue'
+import { computed, onActivated, ref, watch } from 'vue'
 import SearchBar from '@/components/search-bar/search-bar.vue'
 
 const homeStore = useHomeStore()
@@ -33,21 +33,37 @@ watch(isReachBottom, newValue => {
 })
 
 const isShowSearchBar = computed(() => scrollTop.value >= 360)
+onActivated(() => {
+  window.scrollTo({
+    top: scrollTop.value
+  })
+})
 </script>
 
 <template>
   <div class="home-index">
     <home-nav-bar />
     <div class="banner">
-      <img src="@/assets/img/home/banner.webp" alt="" />
+      <img
+        src="@/assets/img/home/banner.webp"
+        alt=""
+      />
     </div>
     <home-search />
     <home-category />
-    <div class="search-bar-contain" v-if="isShowSearchBar">
+    <div
+      class="search-bar-contain"
+      v-if="isShowSearchBar"
+    >
       <search-bar />
     </div>
     <home-hot-picks />
-    <van-button type="primary" @click="loadMore">加载更多</van-button>
+    <van-button
+      type="primary"
+      @click="loadMore"
+    >
+      加载更多
+    </van-button>
   </div>
 </template>
 
