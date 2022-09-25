@@ -8,5 +8,7 @@
 
 <style lang="scss" scoped>
 .favor-index {
+  height: 300px;
+  background-color: gray;
 }
 </style>

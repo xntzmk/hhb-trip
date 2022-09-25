@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { fetchDetailInfos } from '@/service'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, toRaw, toRefs, watch } from 'vue'
 import DetailSwipe from './modules/detail-swipe.vue'
 import DetailInfos from './modules/detail-infos.vue'
 import DetailFacility from './modules/detail-facility.vue'
@@ -41,14 +41,21 @@ const activeIndex = ref('')
 // console.log(value)
 // }
 
+onMounted(() => {
+  console.log(test.value)
+})
 const tabRef = ref()
 const childRefMap = ref({})
+const test = ref([])
 const titleList = computed(() => Object.keys(childRefMap.value))
 const setChildRef = value => {
   if (!value) {
     return // unMounted的时候，value为null
   }
   const title = value.$el.getAttribute('title') // 获取组件上的title属性
+
+  test.value.push(value)
+
   childRefMap.value[title] = value.$el
 }
 
